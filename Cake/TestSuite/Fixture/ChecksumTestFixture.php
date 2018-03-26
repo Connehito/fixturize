@@ -32,7 +32,7 @@ class ChecksumTestFixture extends CakeTestFixture {
 			return true;
 		}
 		$result = parent::insert($db);
-		static::$_tableHashes[$this->table] = $this->_hash($db);
+		static::$_tableHashes[$this->name] = $this->_hash($db);
 		return $result;
 	}
 
@@ -58,7 +58,7 @@ class ChecksumTestFixture extends CakeTestFixture {
  * @return void
  */
 	public function drop($db) {
-		unset(static::$_tableHashes[$this->table]);
+		unset(static::$_tableHashes[$this->name]);
 		return parent::drop($db);
 	}
 
@@ -74,10 +74,10 @@ class ChecksumTestFixture extends CakeTestFixture {
  * @return boolean
  */
 	protected function _tableUnmodified($db) {
-		if (empty(static::$_tableHashes[$this->table])) {
+		if (empty(static::$_tableHashes[$this->name])) {
 			return false;
 		}
-		return static::$_tableHashes[$this->table] === $this->_hash($db);
+		return static::$_tableHashes[$this->name] === $this->_hash($db);
 	}
 
 /**
